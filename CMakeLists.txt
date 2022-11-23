@@ -1,13 +1,12 @@
 cmake_minimum_required(VERSION 3.22)
 project(treeProgram)
 
-#find_library(LIB_PATH pugixml
-	#HINTS /home/nikubuntu/program/tree/libs)
 add_library(pugixml SHARED
-	/usr/lib/pugixml/src/pugixml.cpp
+	/usr/local/lib/pugixml/src/pugixml.cpp
 )
 find_path(HEADER_PATH pugixml.hpp
-	HINTS /usr/lib/pugixml/src)
+	HINTS /usr/local/lib/pugixml/src
+)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 set(SRC_LIST 
