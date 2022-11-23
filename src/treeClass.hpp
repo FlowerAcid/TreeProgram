@@ -3,9 +3,14 @@
 #define TREE_CHAR_ARRAY_MAX_LENGTH 50
 #define TREE_ELEMENT_NAME_MAX_LENGTH 20
 
-// errors codes
+// error codes for baseElement
 #define NO_ERRORS 0
 #define OVERLOADING_CHAR_ARRAY 1
+
+// error codes for treeClass
+#define NO_ERRORS 0
+#define NOT_CORRECT_TYPE_OF_ROOT 1
+#define DID_NOT_FOUND_TREES_ROOT 2
 
 // base element
 
@@ -48,7 +53,7 @@ public:
 	void makeTree(elementTypes type, const char *name);
 	void printTreeStructure();
 	void saveTree();
-	bool loadTree(char *path);
+	int loadTree(char *path);
 };
 
 // other elements

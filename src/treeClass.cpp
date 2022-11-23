@@ -273,7 +273,7 @@ int treeClass::loadNode(xml_node node, baseElement *element)
 	return typeErrorCount;
 }
 
-bool treeClass::loadTree(char* path)
+int treeClass::loadTree(char* path)
 {
 	xml_document doc;
 	xml_parse_result result = doc.load_file(path);
@@ -287,16 +287,15 @@ bool treeClass::loadTree(char* path)
 		else if (!strcmp(doc.child("root").first_attribute().value(), "FLOAT")) type = FLOAT;
 		else 
 		{
-			cout << "not correct type of tree's root" << endl;
-			return 0;
+			return NOT_CORRECT_TYPE_OF_ROOT;
 		}
 		makeTree(type, doc.child("root").name());
 		cout << "not correct elementTypes of nodes " << loadNode(doc.last_child(), root) << "x" << endl;
 	}
 	else 
 	{ 
-		cout << result.status << endl; 
-		if (!doc.child("root")) cout << "didn't found tree's root" <<endl;
+		cout << result.status << endl;
+		return DID_NOT_FOUND_TREES_ROOT;
 	}
-	return 1;
+	return NO_ERRORS;
 }
