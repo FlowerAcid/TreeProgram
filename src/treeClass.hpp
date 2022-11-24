@@ -12,7 +12,7 @@
 #define NOT_CORRECT_TYPE_OF_ROOT 1
 #define DID_NOT_FOUND_TREES_ROOT 2
 
-// base element
+//////////////////////////////////////////// base element
 
 enum elementTypes { CHAR, INT, FLOAT };
 
@@ -27,7 +27,7 @@ public:
 	
 	baseElement();
 	virtual ~baseElement();
-	
+	 
 	char *getName();
 	int getType();
 	void printElementStructure(int count);
@@ -37,7 +37,7 @@ public:
 	virtual int getDataStr(char *arr, int size) = 0;
 };
 
-// tree
+//////////////////////////////////////////// tree
 
 class treeClass
 {
@@ -56,7 +56,7 @@ public:
 	int loadTree(char *path);
 };
 
-// other elements
+//////////////////////////////////////////// other elements
 
 class charArrayElement: public baseElement
 {
