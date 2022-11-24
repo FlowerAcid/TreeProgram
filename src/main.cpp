@@ -1,5 +1,4 @@
 #include <iostream>
-#include <memory>
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
@@ -28,16 +27,23 @@ int main(int argc, char* argv[])
 		{
 			tmp = tree.root->addChild(INT, "element");
 			intElement *cast = static_cast <intElement*> (tmp);
-			cast->set(123);
+			cast->set(1 + i);
 		}
 		
 		for (int i = 0; i < 4; i++)
 		{
 			tmp = tree.root->childrens.at(0)->addChild(FLOAT, "element");
 			floatElement *cast = static_cast <floatElement*> (tmp);
-			cast->set(3.14);
+			cast->set(3.14 + i);
+
+			for (int j = 0; j < 4; j++)
+			{
+			tmp->addChild(CHAR, "element");
+			charArrayElement *cast2 = static_cast <charArrayElement*> (tmp->childrens.at(j));
+			cast2->set("this is charArrayElement" + (i + j));
+			}
 		}
-		
+
 		tree.printTreeStructure();
 		tree.saveTree();
 		
