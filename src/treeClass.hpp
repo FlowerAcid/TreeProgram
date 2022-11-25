@@ -7,10 +7,12 @@
 #define NO_ERRORS 0
 #define OVERLOADING_CHAR_ARRAY 1
 
-// error codes for treeClass
+// error codes for treeParceResult
 #define NO_ERRORS 0
 #define NOT_CORRECT_TYPE_OF_ROOT 1
 #define DID_NOT_FOUND_TREES_ROOT 2
+
+struct treeParceResult;
 
 //////////////////////////////////////////// base element
 
@@ -42,8 +44,8 @@ public:
 class treeClass
 {
 private:
-	void saveNode(pugi::xml_node node, baseElement *element);
-	int loadNode(pugi::xml_node node, baseElement *element);
+	void saveElement(pugi::xml_node node, baseElement *element);
+	int loadElement(pugi::xml_node node, baseElement *element);
 public:
 	baseElement* root;
 	
@@ -53,7 +55,13 @@ public:
 	void makeTree(elementTypes type, const char *name);
 	void printTreeStructure();
 	void saveTree();
-	int loadTree(char *path);
+	treeParceResult loadTree(char *path);
+};
+
+struct treeParceResult
+{
+	int errorCode = 0;
+	int countOfNotLoadedElements;
 };
 
 //////////////////////////////////////////// other elements

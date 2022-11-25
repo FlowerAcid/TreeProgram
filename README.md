@@ -9,6 +9,16 @@ Tree can be modified with functions and also it can be saved or loaded in/from *
 
 ---
 
+### Documentation
+
+#### Error codes for treeParceResult structure
+    0 - No errors
+    1 - Not correct type of tree's root in xml file
+    2 - did not found tree's root in xml file 
+            also this error happens when load xml file is failed
+
+---
+
 ### Reguirements:  
 - Reguared pugixml lib installed in */usr/local/lib*
 

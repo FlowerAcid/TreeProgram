@@ -11,7 +11,9 @@ int main(int argc, char* argv[])
 	if (argc > 1)
 	{
 		treeClass tree = treeClass();
-		cout << tree.loadTree(argv[1]) << endl;
+		treeParceResult result = tree.loadTree(argv[1]);
+		cout << "load tree result: " << result.errorCode << endl;
+		cout << "count of not loaded elements: " << result.countOfNotLoadedElements << endl;
 		tree.printTreeStructure();
 	}
 	else
