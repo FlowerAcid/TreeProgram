@@ -12,6 +12,8 @@
 #define NOT_CORRECT_TYPE_OF_ROOT 1
 #define DID_NOT_FOUND_TREES_ROOT 2
 
+struct treeParceResult;
+
 //////////////////////////////////////////// base element
 
 enum elementTypes { CHAR, INT, FLOAT };
@@ -53,7 +55,13 @@ public:
 	void makeTree(elementTypes type, const char *name);
 	void printTreeStructure();
 	void saveTree();
-	int loadTree(char *path);
+	treeParceResult loadTree(char *path);
+};
+
+struct treeParceResult
+{
+	int errorCode = 0;
+	int countOfNotLoadedElements;
 };
 
 //////////////////////////////////////////// other elements

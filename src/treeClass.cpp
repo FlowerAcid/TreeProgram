@@ -273,29 +273,33 @@ int treeClass::loadNode(xml_node node, baseElement *element)
 	return typeErrorCount;
 }
 
-int treeClass::loadTree(char* path)
+treeParceResult treeClass::loadTree(char* path)
 {
 	xml_document doc;
-	xml_parse_result result = doc.load_file(path);
+	xml_parse_result xmlResult = doc.load_file(path);
+	treeParceResult treeResult;
 		
-	cout << "load xml result: " << result.description() << endl;
-	if (!result.status && doc.child("root")) 
+	cout << "load xml result: " << xmlResult.description() << endl;
+	cout << "load xml status: " << xmlResult.status << endl;
+	if (!xmlResult.status && doc.child("root")) 
 	{
 		elementTypes type;
 		if (!strcmp(doc.child("root").first_attribute().value(), "CHAR")) type = CHAR;
 		else if (!strcmp(doc.child("root").first_attribute().value(), "INT")) type = INT;
 		else if (!strcmp(doc.child("root").first_attribute().value(), "FLOAT")) type = FLOAT;
-		else 
+		else treeResult.errorCode = NOT_CORRECT_TYPE_OF_ROOT;
+		
+		if (!treeResult.errorCode)
 		{
-			return NOT_CORRECT_TYPE_OF_ROOT;
+			makeTree(type, doc.child("root").name());
+			treeResult.countOfNotLoadedElements = loadNode(doc, root);
 		}
-		makeTree(type, doc.child("root").name());
-		cout << "not correct elementTypes of nodes " << loadNode(doc.last_child(), root) << "x" << endl;
 	}
 	else 
-	{ 
-		cout << result.status << endl;
-		return DID_NOT_FOUND_TREES_ROOT;
+	{
+		treeResult.errorCode = DID_NOT_FOUND_TREES_ROOT; 
+		treeResult.countOfNotLoadedElements = 0; 
 	}
-	return NO_ERRORS;
+
+	return treeResult;
 }
