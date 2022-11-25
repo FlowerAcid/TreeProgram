@@ -180,7 +180,7 @@ void treeClass::printTreeStructure()
 
 /////////////////////////////////// Save tree functions
 
-void treeClass::saveNode(xml_node node, baseElement *element)
+void treeClass::saveElement(xml_node node, baseElement *element)
 {
 	char tmp[TREE_CHAR_ARRAY_MAX_LENGTH];
 	
@@ -199,7 +199,7 @@ void treeClass::saveNode(xml_node node, baseElement *element)
 	for (unsigned int i = 0; i < element->childrens.size(); i++)
 	{
 		nodeTmp = node.append_child(element->childrens.at(i)->getName());
-		saveNode(nodeTmp, element->childrens.at(i));
+		saveElement(nodeTmp, element->childrens.at(i));
 	}
 }
 
@@ -209,7 +209,7 @@ void treeClass::saveTree()
 	{
 		xml_document doc;
 		xml_node dRoot = doc.append_child(root->getName());
-		saveNode(dRoot, root);
+		saveElement(dRoot, root);
 		doc.save_file("tree.xml");
 		cout << "your tree was saved!" << endl;
 	}
@@ -218,7 +218,7 @@ void treeClass::saveTree()
 
 /////////////////////////////////// Load tree functions
 
-int treeClass::loadNode(xml_node node, baseElement *element)
+int treeClass::loadElement(xml_node node, baseElement *element)
 {
 	int typeErrorCount = 0;
 	
@@ -266,7 +266,7 @@ int treeClass::loadNode(xml_node node, baseElement *element)
 		}
 		
 		elementTmp = element->addChild(type, nodeTmp.name());
-		typeErrorCount += loadNode(nodeTmp, elementTmp);
+		typeErrorCount += loadElement(nodeTmp, elementTmp);
 		nodeTmp = nodeTmp.next_sibling();
 	}
 	
@@ -292,7 +292,7 @@ treeParceResult treeClass::loadTree(char* path)
 		if (!treeResult.errorCode)
 		{
 			makeTree(type, doc.child("root").name());
-			treeResult.countOfNotLoadedElements = loadNode(doc, root);
+			treeResult.countOfNotLoadedElements = loadElement(doc, root);
 		}
 	}
 	else 
